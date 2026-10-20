@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "springfleetbench"
+version = "0.1.0"
+description = "Pilot benchmark for evaluating Spring Boot upgrades across service fleets"
+requires-python = ">=3.10"
+dependencies = []
+license = { text = "MIT" }
+
+[project.scripts]
+springfleetbench = "springfleetbench.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

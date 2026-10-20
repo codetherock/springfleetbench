@@ -1,0 +1,29 @@
+{
+  "name": "SpringFleetBench Pilot",
+  "version": "0.1.0",
+  "description": "Synthetic two-service fixture for validating the benchmark runner.",
+  "tasks": [
+    {
+      "id": "catalog-service",
+      "description": "Move a service to the target Java/Spring generation and Jakarta validation namespace.",
+      "fixture": "fixtures/catalog",
+      "checks": [
+        {"type": "file_contains", "path": "pom.xml", "value": "<java.version>17</java.version>", "name": "Java 17 configured"},
+        {"type": "file_contains", "path": "pom.xml", "value": "<version>3.2.5</version>", "name": "Spring Boot target configured"},
+        {"type": "file_contains", "path": "src/main/java/example/catalog/Product.java", "value": "jakarta.validation", "name": "Jakarta validation import used"},
+        {"type": "file_not_contains", "path": "src/main/java/example/catalog/Product.java", "value": "javax.validation", "name": "Old validation namespace removed"}
+      ]
+    },
+    {
+      "id": "orders-service",
+      "description": "Upgrade a second service with a different validation and test configuration.",
+      "fixture": "fixtures/orders",
+      "checks": [
+        {"type": "file_contains", "path": "pom.xml", "value": "<java.version>17</java.version>", "name": "Java 17 configured"},
+        {"type": "file_contains", "path": "pom.xml", "value": "<version>3.2.5</version>", "name": "Spring Boot target configured"},
+        {"type": "file_contains", "path": "src/main/java/example/orders/OrderRequest.java", "value": "jakarta.validation", "name": "Jakarta validation import used"},
+        {"type": "file_not_contains", "path": "src/main/java/example/orders/OrderRequest.java", "value": "javax.validation", "name": "Old validation namespace removed"}
+      ]
+    }
+  ]
+}
